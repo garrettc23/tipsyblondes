@@ -9,12 +9,49 @@ import {
 } from "@/lib/content";
 import { Button, Eyebrow, Heading } from "@/components/primitives";
 
+function CheckIcon() {
+  return (
+    <svg
+      className="mt-0.5 shrink-0 text-brass"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
+function CrossIcon() {
+  return (
+    <svg
+      className="mt-0.5 shrink-0 text-rose-500"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  );
+}
+
 export function OccasionBand() {
   const loop = [...OCCASIONS, ...OCCASIONS];
   return (
     <div className="border-y border-brass/15 bg-warmwhite py-9">
-      <p className="label text-center">The events we pour for</p>
-      <div className="marquee mt-6">
+      <div className="marquee">
         <div className="marquee-track">
           {loop.map((o, i) => (
             <span key={i} className="flex items-center whitespace-nowrap">
@@ -51,7 +88,7 @@ export function PackageCard({
     >
       {popular && (
         <span className="absolute -top-3 left-8 pill bg-brass px-4 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-warmwhite">
-          Most Requested
+          Most Popular
         </span>
       )}
       <h3 className="text-2xl">{name}</h3>
@@ -89,32 +126,31 @@ export function PricingPackages() {
         >
           {p.popular && (
             <span className="absolute -top-3 left-8 pill bg-brass px-4 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-warmwhite">
-              Most Requested
+              Most Popular
             </span>
           )}
           <h3 className="text-2xl">{p.name}</h3>
           <p className="mt-2 font-serif text-5xl text-brass">{p.price}</p>
-          <p className="mt-4 text-[0.95rem] leading-relaxed text-ink-soft">{p.blurb}</p>
+          <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-ink-soft">{p.blurb}</p>
 
           <div className="mt-6 border-t border-brass/15 pt-6">
             <p className="label mb-4">What is included</p>
             <ul className="space-y-2.5">
+              {p.extra?.map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-sm font-medium text-ink">
+                  <CheckIcon />
+                  {item}
+                </li>
+              ))}
+              {p.excludes?.map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-sm font-medium text-ink">
+                  <CrossIcon />
+                  {item}
+                </li>
+              ))}
               {INCLUDED.map((item) => (
                 <li key={item} className="flex items-start gap-2.5 text-sm text-ink">
-                  <svg
-                    className="mt-0.5 shrink-0 text-brass"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden
-                  >
-                    <path d="M20 6 9 17l-5-5" />
-                  </svg>
+                  <CheckIcon />
                   {item}
                 </li>
               ))}
@@ -202,7 +238,7 @@ export function CtaBand() {
         style={{ objectPosition: "50% 63%" }}
       />
       <div className="absolute inset-0 bg-ink/55" />
-      <div className="relative mx-auto max-w-3xl px-6 py-20 text-center">
+      <div className="relative mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
         <p className="script text-4xl text-blush">You look like you need a drink</p>
         <Heading className="mt-3 text-warmwhite" size="xl">
           Let us pour your date

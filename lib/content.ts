@@ -61,6 +61,8 @@ export type Pkg = {
   price: string;
   blurb: string;
   popular?: boolean;
+  extra?: string[];
+  excludes?: string[];
 };
 
 export const PACKAGES: Pkg[] = [
@@ -68,14 +70,16 @@ export const PACKAGES: Pkg[] = [
     name: "Pop Up Bar Package",
     price: "$2,100",
     blurb:
-      "Everything you need to pour a beautiful bar. Our full setup, professional bartenders, and a signature menu planned around your event.",
+      "Our full bar service without the bar itself. You provide or rent the bar, and we bring the setup, professional bartenders, and a signature menu planned around your event.",
+    excludes: ["Bar not included, you provide your own"],
   },
   {
     name: "Tipsy Blonde Package",
     price: "$2,400",
     blurb:
-      "Our most requested experience. The full pop up bar plus an elevated touch, dialed in with you during menu planning so every detail fits your day.",
+      "Our most popular experience. Everything in the Pop Up package, plus our signature white bar styled and ready for your event.",
     popular: true,
+    extra: ["Our signature white bar"],
   },
 ];
 
