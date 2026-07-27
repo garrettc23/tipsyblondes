@@ -41,7 +41,6 @@ export const metadata: Metadata = {
     description:
       "Mobile bartending for weddings and events across Orange County. You bring the alcohol, we handle the rest.",
     url: SITE.url,
-    siteName: "Tipsy Blondes OC",
     images: [{ url: "/media/og.png", width: 1200, height: 630, alt: "Tipsy Blondes OC" }],
     locale: "en_US",
     type: "website",
