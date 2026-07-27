@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Section, Eyebrow, Heading, Button, ArchImage } from "@/components/primitives";
+import GalleryStrip from "@/components/GalleryStrip";
 import { OccasionBand, Reviews, CtaBand } from "@/components/sections";
 import { INCLUDED, COCKTAILS, SITE } from "@/lib/content";
 
@@ -67,7 +67,7 @@ export default function Home() {
       <OccasionBand />
 
       {/* Designed to pour beautifully */}
-      <Section className="grid items-center gap-12 md:grid-cols-2">
+      <Section className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
         <div className="relative mx-auto aspect-[4/5] w-full max-w-sm">
           <ArchImage
             src="/media/mirror-need-a-drink.jpg"
@@ -120,7 +120,7 @@ export default function Home() {
       </div>
 
       {/* Signature cocktail teaser */}
-      <Section className="grid items-center gap-12 md:grid-cols-2">
+      <Section className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
         <div className="order-2 md:order-1">
           <Eyebrow>The menu</Eyebrow>
           <Heading className="mt-3" accent="cocktails">
@@ -157,7 +157,7 @@ export default function Home() {
 
       {/* The girls behind the bar */}
       <div className="bg-warmwhite">
-        <Section className="grid items-center gap-12 md:grid-cols-2">
+        <Section className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
           <div className="relative mx-auto aspect-[4/5] w-full max-w-sm">
             <ArchImage
               src="/media/owners.webp"
@@ -228,31 +228,15 @@ export default function Home() {
 
       {/* Gallery teaser */}
       <Section>
-        <div className="flex items-end justify-between">
-          <div>
-            <Eyebrow>The gallery</Eyebrow>
-            <Heading className="mt-3" accent="action">
-              See us in
-            </Heading>
-          </div>
-          <Link
-            href="/gallery"
-            className="hidden text-sm uppercase tracking-[0.2em] text-brass hover:text-ink sm:block"
-          >
-            View all
-          </Link>
-        </div>
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {[
-            { src: "/media/champagne-tower.jpg", alt: "A bride pours a champagne tower at a wedding reception" },
-            { src: "/media/mirror-need-a-drink.jpg", alt: "Signature cocktails on a gold mirror tray" },
-            { src: "/media/bar-the-bar-menu.jpg", alt: "A printed cocktail menu on the Tipsy Blondes OC bar" },
-          ].map((g) => (
-            <div key={g.src} className="relative aspect-square overflow-hidden rounded-sm">
-              <Image src={g.src} alt={g.alt} fill sizes="(max-width: 640px) 50vw, 33vw" className="object-cover" />
-            </div>
-          ))}
-        </div>
+        <GalleryStrip
+          items={[
+            { src: "/media/marg-brick-wall.webp", alt: "A tajin-rimmed margarita held against a white brick wall" },
+            { src: "/media/tray-five-drinks.webp", alt: "A tray of five signature cocktails with dried citrus" },
+            { src: "/media/coupes-menu-sign.webp", alt: "Two coupe cocktails in front of a signature cocktail menu" },
+            { src: "/media/champagne-tower.jpg", alt: "A bride pouring a champagne tower at a reception" },
+            { src: "/media/coupes-sunflowers.webp", alt: "Two coupe cocktails beside sunflowers" },
+          ]}
+        />
       </Section>
 
       <CtaBand />

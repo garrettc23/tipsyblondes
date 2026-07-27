@@ -20,7 +20,7 @@ export default function Nav() {
     <header className="sticky top-0 z-50 border-b border-brass/15 bg-cream/85 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3 sm:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
+        <Link href="/" className="flex items-center" onClick={() => setOpen(false)} aria-label="Tipsy Blondes OC home">
           <Image
             src="/media/logo-mark.png"
             alt="Tipsy Blondes OC mobile bartending logo"
@@ -58,24 +58,26 @@ export default function Nav() {
         {/* Mobile toggle */}
         <button
           type="button"
-          aria-label="Toggle menu"
+          aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="-mr-1 flex h-10 w-10 items-center justify-center text-ink md:hidden"
         >
-          <span
-            className={`h-px w-6 bg-ink transition-transform ${open ? "translate-y-[7px] rotate-45" : ""}`}
-          />
-          <span className={`h-px w-6 bg-ink transition-opacity ${open ? "opacity-0" : ""}`} />
-          <span
-            className={`h-px w-6 bg-ink transition-transform ${open ? "-translate-y-[7px] -rotate-45" : ""}`}
-          />
+          {open ? (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden>
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          ) : (
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden>
+              <path d="M3 7h18M3 12h18M3 17h18" />
+            </svg>
+          )}
         </button>
       </nav>
 
       {/* Mobile drawer */}
       {open && (
-        <div className="border-t border-brass/15 bg-cream md:hidden">
+        <div className="absolute inset-x-0 top-full border-t border-brass/15 bg-cream shadow-[0_24px_28px_-22px_rgba(74,63,54,0.45)] md:hidden">
           <ul className="flex flex-col px-6 py-4">
             {links.map((l) => (
               <li key={l.href}>

@@ -24,7 +24,7 @@ export default function Pricing() {
       />
 
       {/* Header + concept hero */}
-      <Section className="grid items-center gap-12 pt-12 md:grid-cols-2">
+      <Section className="grid items-center gap-8 pt-12 md:grid-cols-2 md:gap-12">
         <div>
           <Eyebrow>Pricing</Eyebrow>
           <Heading as="h1" className="mt-3" accent="25%" size="xl">
@@ -38,8 +38,7 @@ export default function Pricing() {
           </p>
           <p className="mt-4 text-base leading-relaxed text-ink-soft">
             You supply the alcohol, we supply everything else. Two straightforward
-            packages, everything included, and no hidden fees. Here is exactly what each
-            one costs.
+            packages and no hidden fees. Here is exactly what each one includes and costs.
           </p>
         </div>
         <div className="relative mx-auto aspect-[4/5] w-full max-w-sm">
@@ -59,19 +58,18 @@ export default function Pricing() {
           <div className="text-center">
             <Eyebrow>The packages</Eyebrow>
             <Heading className="mt-3" accent="event">
-              Everything included, priced for your
+              Priced for your
             </Heading>
             <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink-soft">
-              Two packages, no liquor markup, and the same full kit in each. Here is exactly
-              what comes with your bar.
+              Two packages, no liquor markup. The Pop Up brings the full service, and the
+              Tipsy Blonde adds our signature white bar. Here is exactly what comes with each.
             </p>
           </div>
           <div className="mx-auto mt-12 max-w-4xl">
             <PricingPackages />
           </div>
           <p className="mx-auto mt-8 max-w-xl text-center text-sm text-ink-soft">
-            Both packages include everything above. Larger guest counts and add ons are
-            quoted during planning, based on your event.
+            Larger guest counts and add ons are quoted during planning, based on your event.
           </p>
         </Section>
       </div>
