@@ -27,7 +27,7 @@ export default function Home() {
             A mobile bar for weddings and events across {SITE.area}. You bring the alcohol,
             we bring the bartenders, the bar, and everything in between.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
+          <div className="mt-8 flex flex-nowrap justify-center gap-3 md:justify-start">
             <Button href="/contact">Contact Us</Button>
             <Button href="/gallery" variant="outline">
               View the Gallery

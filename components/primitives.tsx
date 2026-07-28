@@ -63,7 +63,7 @@ export function Button({
   external?: boolean;
 }) {
   const base =
-    "pill inline-block px-9 py-3.5 text-xs uppercase tracking-[0.22em] transition-colors";
+    "pill inline-block px-6 py-3.5 text-xs uppercase tracking-[0.16em] transition-colors sm:px-9 sm:tracking-[0.22em]";
   const styles =
     variant === "solid"
       ? "bg-brass text-warmwhite hover:bg-ink"
