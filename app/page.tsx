@@ -16,7 +16,7 @@ export default function Home() {
           <Eyebrow>Orange County Mobile Bartending</Eyebrow>
           <p
             aria-hidden
-            className="mt-5 font-serif text-[3.25rem] leading-[1.02] tracking-[0.005em] text-ink sm:text-6xl lg:text-[4.5rem]"
+            className="mt-5 font-serif text-[2.75rem] leading-[1.02] tracking-[0.005em] text-ink sm:text-6xl lg:text-[4.5rem]"
           >
             Tipsy Blondes <span className="text-brass">OC</span>
           </p>
