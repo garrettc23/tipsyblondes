@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SITE, NAV } from "@/lib/content";
+import { SITE, NAV, INQUIRY } from "@/lib/content";
 
 export default function Footer() {
   return (
@@ -15,8 +15,8 @@ export default function Footer() {
             className="h-14 w-auto"
           />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
-            Mobile bartending for weddings and events across {SITE.area}. You bring the
-            alcohol, we bring the rest.
+            Mobile bartending for weddings and events across {SITE.area}. You
+            bring the alcohol, we take care of the service.
           </p>
         </div>
 
@@ -25,7 +25,10 @@ export default function Footer() {
           <ul className="space-y-2">
             {NAV.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="text-sm text-ink-soft hover:text-brass">
+                <Link
+                  href={l.href}
+                  className="text-sm text-ink-soft hover:text-brass"
+                >
                   {l.label}
                 </Link>
               </li>
@@ -34,7 +37,13 @@ export default function Footer() {
         </div>
 
         <div>
-          <p className="label mb-4">Get in touch</p>
+          <p className="label mb-4">Let’s celebrate</p>
+          <Link
+            href={INQUIRY.href}
+            className="mb-5 inline-block text-sm text-brass underline underline-offset-4"
+          >
+            {INQUIRY.label} ↗
+          </Link>
           <ul className="space-y-2 text-sm text-ink-soft">
             <li>
               <a href={SITE.phoneHref} className="hover:text-brass">
@@ -47,17 +56,32 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href={SITE.instagram} className="hover:text-brass" target="_blank" rel="noopener noreferrer">
+              <a
+                href={SITE.instagram}
+                className="hover:text-brass"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {SITE.instagramHandle}
               </a>
             </li>
             <li>
-              <a href={SITE.linktree} className="hover:text-brass" target="_blank" rel="noopener noreferrer">
+              <a
+                href={SITE.linktree}
+                className="hover:text-brass"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Linktree
               </a>
             </li>
             <li>
-              <a href={SITE.theKnot} className="hover:text-brass" target="_blank" rel="noopener noreferrer">
+              <a
+                href={SITE.theKnot}
+                className="hover:text-brass"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 The Knot
               </a>
             </li>

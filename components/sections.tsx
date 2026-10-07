@@ -1,203 +1,151 @@
 import Image from "next/image";
 import {
-  OCCASIONS,
   PACKAGES,
   INCLUDED,
   REVIEWS,
+  FEATURED_REVIEWS,
   COCKTAILS,
-  COCKTAIL_CATEGORIES,
+  BARS,
+  BOOKING,
+  INQUIRY,
+  PRICE_NOTE,
 } from "@/lib/content";
 import { Button, Eyebrow, Heading } from "@/components/primitives";
 
-function CheckIcon() {
-  return (
-    <svg
-      className="mt-0.5 shrink-0 text-brass"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
-function CrossIcon() {
-  return (
-    <svg
-      className="mt-0.5 shrink-0 text-rose-500"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M18 6 6 18M6 6l12 12" />
-    </svg>
-  );
-}
-
-export function OccasionBand() {
-  const loop = [...OCCASIONS, ...OCCASIONS];
-  return (
-    <div className="border-y border-brass/15 bg-warmwhite py-9">
-      <div className="marquee">
-        <div className="marquee-track">
-          {loop.map((o, i) => (
-            <span key={i} className="flex items-center whitespace-nowrap">
-              <span className="px-7 text-lg uppercase tracking-[0.2em] text-ink-soft sm:text-2xl">
-                {o}
-              </span>
-              <span className="text-sm text-brass" aria-hidden>
-                &#10022;
-              </span>
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function PackageCard({
-  name,
-  price,
-  blurb,
-  popular,
-}: {
-  name: string;
-  price: string;
-  blurb: string;
-  popular?: boolean;
-}) {
-  return (
-    <div
-      className={`relative flex flex-col rounded-sm border bg-warmwhite p-8 ${
-        popular ? "border-brass card-shadow" : "border-brass/25"
-      }`}
-    >
-      {popular && (
-        <span className="absolute -top-3 left-8 pill bg-brass px-4 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-warmwhite">
-          Most Popular
-        </span>
-      )}
-      <h3 className="text-2xl">{name}</h3>
-      <p className="mt-2 font-serif text-5xl text-brass">{price}</p>
-      <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-ink-soft">{blurb}</p>
-      <div className="mt-6">
-        <Button href="/contact" variant={popular ? "solid" : "outline"}>
-          Contact Us
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-export function Packages() {
-  return (
-    <div className="grid gap-6 sm:grid-cols-2">
-      {PACKAGES.map((p) => (
-        <PackageCard key={p.name} {...p} />
-      ))}
-    </div>
-  );
-}
-
-/** Detailed package cards: price, description, and the full what's-included list. */
 export function PricingPackages() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
-      {PACKAGES.map((p) => (
-        <div
-          key={p.name}
-          className={`relative flex flex-col rounded-sm border bg-warmwhite p-8 ${
-            p.popular ? "border-brass card-shadow" : "border-brass/25"
-          }`}
+      {PACKAGES.map((pkg) => (
+        <article
+          key={pkg.name}
+          className="flex flex-col rounded-2xl border border-blush bg-warmwhite p-7 sm:p-10"
         >
-          {p.popular && (
-            <span className="absolute -top-3 left-8 pill bg-brass px-4 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-warmwhite">
-              Most Popular
+          <p className="label">
+            {pkg.barIncluded ? "We bring the bar" : "You have the bar"}
+          </p>
+          <h2 className="mt-4 text-4xl">{pkg.name}</h2>
+          <p className="mt-6 text-sm text-ink-soft">
+            Starting at{" "}
+            <span className="ml-1 font-serif text-5xl text-ink">
+              ${pkg.startingPrice.toLocaleString("en-US")}
             </span>
+          </p>
+          {pkg.priceIsPlaceholder && (
+            <p className="mt-3 text-xs leading-relaxed text-ink-soft">
+              {PRICE_NOTE}
+            </p>
           )}
-          <h3 className="text-2xl">{p.name}</h3>
-          <p className="mt-2 font-serif text-5xl text-brass">{p.price}</p>
-          <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-ink-soft">{p.blurb}</p>
-
-          <div className="mt-6 border-t border-brass/15 pt-6">
-            <p className="label mb-4">What is included</p>
-            <ul className="space-y-2.5">
-              {p.extra?.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm font-medium text-ink">
-                  <CheckIcon />
-                  {item}
-                </li>
-              ))}
-              {p.excludes?.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm font-medium text-ink">
-                  <CrossIcon />
-                  {item}
-                </li>
-              ))}
-              {INCLUDED.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm text-ink">
-                  <CheckIcon />
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <p className="mt-6 text-base leading-relaxed text-ink-soft">
+            {pkg.blurb}
+          </p>
+          <p className="my-6 border-y border-blush py-4 text-sm font-medium">
+            {pkg.barIncluded
+              ? "Physical bar included"
+              : "Physical bar not included"}
+          </p>
+          <div className="mt-auto">
+            <Button href={INQUIRY.href}>{INQUIRY.label}</Button>
           </div>
-
-          <div className="mt-8">
-            <Button href="/contact" variant={p.popular ? "solid" : "outline"}>
-              Contact Us
-            </Button>
-          </div>
-        </div>
+        </article>
       ))}
     </div>
   );
 }
 
-export function ReviewCard({ quote, name }: { quote: string; name: string }) {
+export function Inclusions() {
   return (
-    <figure className="flex h-full flex-col rounded-sm border border-brass/20 bg-cream p-8">
-      <div className="flex gap-1 text-brass" aria-hidden>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <span key={i} className="text-sm">
-            &#9733;
+    <ul className="mt-8 grid gap-x-10 gap-y-3 text-sm text-ink-soft sm:grid-cols-2 lg:grid-cols-3">
+      {INCLUDED.map((item) => (
+        <li key={item} className="flex gap-3">
+          <span aria-hidden className="text-brass">
+            ✓
           </span>
-        ))}
-      </div>
-      <span className="mt-4 font-serif text-6xl leading-[0.4] text-brass/25" aria-hidden>
-        &ldquo;
-      </span>
-      <blockquote className="mt-3 flex-1 font-serif text-lg leading-relaxed text-ink">
-        {quote}
-      </blockquote>
-      <figcaption className="mt-6 flex items-center gap-3">
-        <span className="h-px w-6 bg-brass" />
-        <span className="text-xs uppercase tracking-[0.22em] text-brass">{name}</span>
-      </figcaption>
-    </figure>
+          {item}
+        </li>
+      ))}
+    </ul>
   );
 }
 
-export function Reviews({ limit }: { limit?: number }) {
-  const list = limit ? REVIEWS.slice(0, limit) : REVIEWS;
+export function Reviews() {
   return (
-    <div className="grid items-stretch gap-6 md:grid-cols-3">
-      {list.map((r) => (
-        <ReviewCard key={r.name} {...r} />
+    <div className="grid gap-5 md:grid-cols-3">
+      {FEATURED_REVIEWS.map((name) =>
+        REVIEWS.find((review) => review.name === name),
+      )
+        .filter((review) => review !== undefined)
+        .map((review) => (
+          <figure
+            key={review.name}
+            className="flex flex-col rounded-2xl border border-blush bg-warmwhite p-7 sm:p-8"
+          >
+            <span
+              aria-hidden
+              className="font-serif text-6xl leading-none text-blush-deep"
+            >
+              “
+            </span>
+            <blockquote className="flex-1 text-base leading-[1.8] text-ink-soft">
+              {review.quote}
+            </blockquote>
+            <figcaption className="mt-6 border-t border-blush pt-5 font-serif text-2xl">
+              {review.name}
+            </figcaption>
+          </figure>
+        ))}
+    </div>
+  );
+}
+
+export function HowItWorks() {
+  return (
+    <ol className="mt-10 grid gap-8 md:grid-cols-3">
+      {BOOKING.map((step) => (
+        <li key={step.n} className="border-t border-blush pt-6">
+          <span className="font-serif text-3xl text-brass">0{step.n}</span>
+          <h3 className="mt-4 text-2xl">{step.title}</h3>
+          <p className="mt-3 text-base leading-relaxed text-ink-soft">
+            {step.detail}
+          </p>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+export function BarGallery() {
+  return (
+    <div className="mt-10 grid gap-6 sm:grid-cols-3">
+      {BARS.map((bar) => (
+        <figure key={bar.name}>
+          <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-t-[5rem] border border-blush bg-warmwhite">
+            {bar.photo && !bar.photoIsPlaceholder ? (
+              <Image
+                src={bar.photo.src}
+                alt={bar.photo.alt}
+                fill
+                sizes="(max-width: 640px) 90vw, 33vw"
+                className="object-cover"
+              />
+            ) : (
+              <div className="px-6 text-center">
+                <span
+                  aria-hidden
+                  className="block font-serif text-4xl text-blush-deep"
+                >
+                  ✧
+                </span>
+                <p className="mt-3 text-sm text-ink-soft">Photo coming soon</p>
+                <p className="mt-1 text-xs text-ink-soft">
+                  Awaiting a confirmed photo
+                </p>
+              </div>
+            )}
+          </div>
+          <figcaption className="mt-5 text-center font-serif text-2xl">
+            {bar.name} <span className="text-ink-soft">· {bar.size}</span>
+          </figcaption>
+        </figure>
       ))}
     </div>
   );
@@ -205,50 +153,55 @@ export function Reviews({ limit }: { limit?: number }) {
 
 export function CocktailMenu() {
   return (
-    <div className="space-y-14">
-      {COCKTAIL_CATEGORIES.map((cat) => (
-        <div key={cat}>
-          <div className="mb-6 flex items-center gap-4">
-            <h3 className="text-2xl">{cat}</h3>
-            <span className="rule flex-1" />
+    <div className="grid gap-6 sm:grid-cols-3">
+      {COCKTAILS.map((photo) => (
+        <figure key={photo.src}>
+          <div className="relative aspect-[4/5] overflow-hidden rounded-xl">
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              sizes="(max-width: 640px) 90vw, 33vw"
+              className="object-cover"
+            />
           </div>
-          <ul className="grid gap-6 sm:grid-cols-2">
-            {COCKTAILS.filter((c) => c.category === cat).map((c) => (
-              <li key={c.name}>
-                <p className="font-serif text-2xl text-ink">{c.name}</p>
-                <p className="mt-1.5 text-base italic leading-relaxed text-ink-soft">{c.spec}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <figcaption className="mt-5 font-serif text-2xl">
+            {photo.caption}
+          </figcaption>
+        </figure>
       ))}
     </div>
   );
 }
 
-export function CtaBand() {
+export function CtaBand({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="relative overflow-hidden bg-ink">
-      <Image
-        src="/media/cta-cups.png"
-        alt="Custom Tipsy Blondes OC event cups holding signature cocktails"
-        fill
-        sizes="100vw"
-        className="object-cover"
-        style={{ objectPosition: "50% 63%" }}
-      />
-      <div className="absolute inset-0 bg-ink/55" />
-      <div className="relative mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
-        <p className="script text-4xl text-blush">You look like you need a drink</p>
-        <Heading className="mt-3 text-warmwhite" size="xl">
-          Let us pour your date
-        </Heading>
-        <div className="mt-9">
-          <Button href="/contact" variant="solid">
-            Contact Us
-          </Button>
+    <section
+      className={
+        compact
+          ? "border-y border-blush bg-blush/40"
+          : "border-t border-blush bg-blush/50"
+      }
+      aria-label="Start your booking"
+    >
+      <div
+        className={`mx-auto flex max-w-6xl flex-col items-center gap-7 px-6 text-center sm:px-8 ${compact ? "py-10 md:flex-row md:justify-between md:text-left" : "py-16 sm:py-20"}`}
+      >
+        <div>
+          <Eyebrow>We’d love to celebrate with you</Eyebrow>
+          <Heading className="mt-3" accent={compact ? undefined : "together."}>
+            {compact ? "Have a date in mind?" : "Let’s make it yours,"}
+          </Heading>
+          {!compact && (
+            <p className="mt-5 text-base text-ink-soft">
+              Tell us a little about your plans. We’ll take it from there.
+            </p>
+          )}
         </div>
+        <Button href={INQUIRY.href}>
+          {INQUIRY.softLabel} <span aria-hidden>↗</span>
+        </Button>
       </div>
-    </div>
+    </section>
   );
 }

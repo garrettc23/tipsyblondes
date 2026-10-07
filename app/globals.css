@@ -2,15 +2,15 @@
 
 @theme {
   /* Brand palette, sampled from the Tipsy Blondes OC logo */
-  --color-cream: #f6ebe4;
-  --color-warmwhite: #fbf9f4;
-  --color-ink: #4a3f36;
-  --color-ink-soft: #6b5d51;
-  --color-brass: #b08d57;
-  --color-brass-soft: #cbb089;
+  --color-cream: #fff5f5;
+  --color-warmwhite: #fffcf9;
+  --color-ink: #49363c;
+  --color-ink-soft: #705b63;
+  --color-brass: #9b5266;
+  --color-brass-soft: #c38a99;
   --color-sage: #8e9a80;
-  --color-blush: #ead3ce;
-  --color-blush-deep: #e0bdb4;
+  --color-blush: #f1d8de;
+  --color-blush-deep: #d798aa;
   --color-blue: #41607a;
 
   /* Type families (wired to next/font variables in layout.tsx) */
@@ -141,5 +141,103 @@
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;
+  }
+}
+
+/* Keep anchors visible below the compact sticky navigation. */
+[id] {
+  scroll-margin-top: 105px;
+}
+:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 5px;
+}
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--color-blush);
+  background: #fffcf9f5;
+  backdrop-filter: blur(12px);
+}
+.nav-link {
+  display: inline-block;
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--color-ink-soft);
+}
+.nav-link:hover {
+  color: var(--color-brass);
+}
+.nav-booking {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-radius: 99px;
+  background: var(--color-brass);
+  padding: 13px 22px;
+  font-size: 13px;
+  color: var(--color-warmwhite);
+}
+.nav-booking:hover {
+  background: var(--color-ink);
+}
+.mobile-link {
+  display: block;
+  padding: 12px 0;
+  font-size: 16px;
+}
+.photo-ribbon {
+  padding-top: 12px;
+}
+.ribbon-scroll {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ribbon-scroll::-webkit-scrollbar {
+  display: none;
+}
+.ribbon-group {
+  display: flex;
+  flex: none;
+  gap: 12px;
+  padding-right: 12px;
+}
+.ribbon-photo {
+  position: relative;
+  height: 190px;
+  width: 240px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.hero-intro {
+  padding-top: 32px;
+  padding-bottom: 56px;
+}
+@media (max-width: 640px) {
+  .ribbon-photo {
+    height: 150px;
+    width: 42vw;
+  }
+  .ribbon-group {
+    gap: 8px;
+    padding-right: 8px;
+  }
+  .hero-intro {
+    padding-top: 24px;
+    padding-bottom: 40px;
+  }
+  .label {
+    letter-spacing: 0.18em;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .ribbon-toggle {
+    visibility: hidden;
   }
 }

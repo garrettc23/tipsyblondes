@@ -3,11 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
-export type MediaItem = {
-  type: "image" | "video";
-  src: string;
-  alt: string;
-};
+import type { MediaItem } from "@/lib/content";
 
 export default function MediaGrid({ items }: { items: MediaItem[] }) {
   // Only images open in the lightbox; videos use native fullscreen controls.
@@ -60,12 +56,14 @@ export default function MediaGrid({ items }: { items: MediaItem[] }) {
               />
             </button>
           ) : (
-            <div key={m.src} className="overflow-hidden rounded-sm break-inside-avoid">
+            <div
+              key={m.src}
+              className="overflow-hidden rounded-sm break-inside-avoid"
+            >
               {/* Native controls give play/pause, a draggable seek bar, and fullscreen. */}
               <video
                 className="h-auto w-full"
                 src={m.src}
-                autoPlay
                 muted
                 loop
                 playsInline

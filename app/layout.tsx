@@ -24,32 +24,37 @@ const jost = Jost({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Tipsy Blondes OC | Mobile Bartending in Orange County",
+    default: "Tipsy Blondes | Weddings & Event Bartending",
     template: "%s | Tipsy Blondes OC",
   },
-  description:
-    "Tipsy Blondes OC is a mobile bartending service in Orange County for weddings and private events. You bring the alcohol, we bring the bar, the bartenders, and everything else.",
+  description: `Meet Taylor & Amber. Personal mobile bartending, fresh cocktails, and thoughtful service for celebrations across ${SITE.area}.`,
   keywords: [
     "Orange County mobile bartending",
     "wedding bartending service",
     "mobile bar hire",
     "dry bar service",
-    "OC event bartenders",
+    "San Diego event bartenders",
+    "Temecula wedding bartending",
   ],
   openGraph: {
-    title: "Tipsy Blondes OC | Mobile Bartending in Orange County",
-    description:
-      "Mobile bartending for weddings and events across Orange County. You bring the alcohol, we handle the rest.",
+    title: "Tipsy Blondes | Weddings & Event Bartending",
+    description: `Mobile bartending with Taylor & Amber across ${SITE.area}.`,
     url: SITE.url,
-    images: [{ url: "/media/og.png", width: 1200, height: 630, alt: "Tipsy Blondes OC" }],
+    images: [
+      {
+        url: "/media/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Tipsy Blondes OC",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tipsy Blondes OC | Mobile Bartending in Orange County",
-    description:
-      "Mobile bartending for weddings and events across Orange County. You bring the alcohol, we handle the rest.",
+    title: "Tipsy Blondes | Weddings & Event Bartending",
+    description: `Mobile bartending with Taylor & Amber across ${SITE.area}.`,
     images: ["/media/og.png"],
   },
   alternates: { canonical: SITE.url },
@@ -65,8 +70,16 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">
         <JsonLd data={localBusinessSchema()} />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-warmwhite focus:p-4"
+        >
+          Skip to content
+        </a>
         <Nav />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
