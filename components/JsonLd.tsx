@@ -1,4 +1,4 @@
-import { SITE, PACKAGES, REVIEWS, FAQS } from "@/lib/content";
+import { SITE, PACKAGES, FAQS } from "@/lib/content";
 
 export function JsonLd({ data }: { data: object }) {
   return (
@@ -13,10 +13,9 @@ export function JsonLd({ data }: { data: object }) {
 export function localBusinessSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": "BarOrPub",
+    "@type": "LocalBusiness",
     name: SITE.name,
-    description:
-      "Mobile bartending service in Orange County for weddings and private events. You provide the alcohol, we provide the bar, bartenders, and everything else.",
+    description: `Mobile bartending for weddings and private events across ${SITE.area}. You provide the alcohol; we provide personal bartending service.`,
     url: SITE.url,
     telephone: SITE.phone,
     email: SITE.email,
@@ -26,33 +25,23 @@ export function localBusinessSchema() {
     award: "The Knot Best of Weddings (2x winner)",
     foundingDate: String(SITE.foundedYear),
     founder: SITE.founders.map((name) => ({ "@type": "Person", name })),
-    areaServed: {
-      "@type": "AdministrativeArea",
-      name: "Orange County, California",
-    },
+    areaServed: [
+      "Orange County, California",
+      "San Diego, California",
+      "Temecula, California",
+    ].map((name) => ({ "@type": "Place", name })),
     address: {
       "@type": "PostalAddress",
       addressRegion: "CA",
       addressCountry: "US",
     },
     sameAs: [SITE.instagram, SITE.linktree, SITE.theKnot],
-    makesOffer: PACKAGES.map((p) => ({
+    makesOffer: PACKAGES.filter((p) => !p.priceIsPlaceholder).map((p) => ({
       "@type": "Offer",
       name: p.name,
-      price: p.price.replace(/[$,]/g, ""),
+      price: p.startingPrice,
       priceCurrency: "USD",
       category: "Mobile Bartending",
-    })),
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      reviewCount: String(REVIEWS.length),
-    },
-    review: REVIEWS.map((r) => ({
-      "@type": "Review",
-      reviewRating: { "@type": "Rating", ratingValue: "5" },
-      author: { "@type": "Person", name: r.name },
-      reviewBody: r.quote,
     })),
   };
 }
