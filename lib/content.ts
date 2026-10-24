@@ -6,7 +6,7 @@ export const SITE = {
   tagline: "Mobile Bar and Bartending",
   description:
     "Mobile bartending with Amber and Taylor in Orange County, Los Angeles, San Diego, and Palm Springs. Custom cocktail menus for weddings, parties, and brand events.",
-  url: "https://tipsyblondesoc.com",
+  url: "https://tipsyblondes.vercel.app",
   area: "Orange County, California",
   serviceAreas: ["Orange County", "Los Angeles", "San Diego", "Palm Springs"],
   serviceAreaDescription: "Orange County, Los Angeles, San Diego, Palm Springs, and surrounding areas",

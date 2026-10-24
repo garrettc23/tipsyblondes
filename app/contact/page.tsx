@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Contact & Inquire",
   description:
     "Book Tipsy Blondes in Orange County, Los Angeles, San Diego, Palm Springs, and surrounding areas. Share your date and event details to get started.",
-  alternates: { canonical: "https://tipsyblondesoc.com/contact" },
+  alternates: { canonical: "/contact" },
 };
 
 const FORM_EMBED = `${SITE.googleForm}?embedded=true`;

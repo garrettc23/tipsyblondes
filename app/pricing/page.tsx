@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Bar & Packages",
   description:
     "Explore the Pop Up Bar and Tipsy Blonde packages, our white mobile bar, and included bartending services. Alcohol is excluded from all packages.",
-  alternates: { canonical: "https://tipsyblondesoc.com/pricing" },
+  alternates: { canonical: "/pricing" },
 };
 
 function InclusionMark({ included = true }: { included?: boolean }) {

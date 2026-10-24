@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Meet Taylor & Amber",
   description:
     "Get to know Taylor Larson and Amber Arrington, the best friends behind Tipsy Blondes mobile bartending in Orange County.",
-  alternates: { canonical: "https://tipsyblondesoc.com/about" },
+  alternates: { canonical: "/about" },
 };
 
 export default function About() {
