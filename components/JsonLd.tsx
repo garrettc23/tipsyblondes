@@ -20,7 +20,7 @@ export function localBusinessSchema() {
     url: SITE.url,
     telephone: SITE.phone,
     email: SITE.email,
-    image: `${SITE.url}/media/tipsy-blondes-social.png`,
+    image: `${SITE.url}/media/tipsy-blondes-social-photo.png`,
     logo: `${SITE.url}/icon.png`,
     foundingDate: String(SITE.foundedYear),
     founder: SITE.founders.map((name) => ({ "@type": "Person", name })),

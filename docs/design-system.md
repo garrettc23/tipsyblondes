@@ -41,4 +41,4 @@
 
 - Use Lora (font-accent) for FAQ questions, the Why book Tipsy Blondes benefit titles and matching numbers, and booking-step headings. Keep Cormorant for the brand and large section headings, and Jost for body copy and controls.
 
-- Shared-link previews use `public/media/tipsy-blondes-social.png` at 1200 × 630, with the faint blush background and warm brown lettering. Center the Cormorant wordmark at 136px and the uppercase Jost descriptor at 52px so both remain readable in small previews.
+- Shared-link previews use `public/media/tipsy-blondes-social-photo.png` at 1200 × 630, with the homepage cocktail photograph, an even dark overlay, and ivory lettering. Center the Cormorant wordmark at 136px and the uppercase Jost descriptor at 52px so both remain readable in small previews.
