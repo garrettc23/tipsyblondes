@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from "@/components/PageLink";
 import Image from "next/image";
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 export function Section({
   children,
@@ -12,41 +12,31 @@ export function Section({
   id?: string;
 }) {
   return (
-    <section id={id} className={`mx-auto max-w-6xl px-6 py-14 sm:px-8 sm:py-24 ${className}`}>
+    <section
+      id={id}
+      className={`mx-auto max-w-[1280px] px-6 py-16 sm:px-10 sm:py-24 lg:px-16 ${className}`}
+    >
       {children}
     </section>
   );
 }
 
-export function Eyebrow({ children }: { children: ReactNode }) {
-  return <p className="label">{children}</p>;
-}
-
-/**
- * Serif section heading with an optional italic-script accent word,
- * the recurring Beleza-style header device.
- */
 export function Heading({
   children,
-  accent,
   className = "",
   as: Tag = "h2",
   size = "lg",
 }: {
   children: ReactNode;
-  accent?: string;
   className?: string;
   as?: "h1" | "h2" | "h3";
   size?: "lg" | "xl";
 }) {
-  const sizes =
-    size === "xl"
-      ? "text-5xl leading-[1.05] sm:text-6xl lg:text-7xl"
-      : "text-[2.6rem] leading-[1.08] sm:text-5xl";
   return (
-    <Tag className={`${sizes} ${className}`}>
+    <Tag
+      className={`${size === "xl" ? "text-5xl sm:text-6xl lg:text-7xl" : "text-[2.6rem] sm:text-5xl lg:text-[3.5rem]"} leading-[1.06] ${className}`}
+    >
       {children}
-      {accent ? <span className="accent"> {accent}</span> : null}
     </Tag>
   );
 }
@@ -59,59 +49,49 @@ export function Button({
 }: {
   href: string;
   children: ReactNode;
-  variant?: "solid" | "outline";
+  variant?: "solid" | "outline" | "light";
   external?: boolean;
 }) {
-  const base =
-    "pill inline-block px-6 py-3.5 text-xs uppercase tracking-[0.16em] transition-colors sm:px-9 sm:tracking-[0.22em]";
   const styles =
     variant === "solid"
-      ? "bg-brass text-warmwhite hover:bg-ink"
-      : "border border-brass text-brass hover:bg-brass hover:text-warmwhite";
-  const cls = `${base} ${styles}`;
-  if (external) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
-        {children}
-      </a>
-    );
-  }
-  return (
+      ? "border-ink bg-ink text-warmwhite hover:bg-brass hover:border-brass"
+      : variant === "light"
+        ? "border-cream bg-cream text-ink hover:bg-white"
+        : "border-brass bg-warmwhite text-ink hover:bg-blush";
+  const cls = `cta-button inline-flex min-h-14 max-w-full items-center justify-center rounded-full border px-7 py-4 text-center text-base font-medium leading-6 tracking-[0.01em] transition-colors sm:px-9 ${styles}`;
+  return external ? (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
+      {children}
+    </a>
+  ) : (
     <Link href={href} className={cls}>
       {children}
     </Link>
   );
 }
 
-/** Arch-masked photo, the recurring frame device. */
-export function ArchImage({
+export function Photo({
   src,
   alt,
   className = "",
   priority = false,
-  variant = "arch",
   objectPosition = "center",
+  sizes = "(max-width: 768px) 100vw, 50vw",
 }: {
   src: string;
   alt: string;
   className?: string;
   priority?: boolean;
-  variant?: "arch" | "arch-full" | "circle";
   objectPosition?: string;
+  sizes?: string;
 }) {
-  const shape =
-    variant === "circle"
-      ? "rounded-full"
-      : variant === "arch-full"
-        ? "arch-full"
-        : "arch";
   return (
-    <div className={`relative overflow-hidden ${shape} ${className}`}>
+    <div className={`relative overflow-hidden rounded-xl bg-blush ${className}`}>
       <Image
         src={src}
         alt={alt}
         fill
-        sizes="(max-width: 768px) 100vw, 50vw"
+        sizes={sizes}
         className="object-cover"
         style={{ objectPosition }}
         priority={priority}

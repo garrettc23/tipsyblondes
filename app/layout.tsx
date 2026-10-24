@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Cormorant_Garamond, Jost, Lora } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -10,25 +10,31 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  style: ["normal"],
   display: "swap",
 });
 
 const jost = Jost({
   variable: "--font-jost",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  display: "swap",
+});
+
+const lora = Lora({
+  variable: "--font-lora",
+  subsets: ["latin"],
+  weight: "500",
+  style: "normal",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Tipsy Blondes OC | Mobile Bartending in Orange County",
-    template: "%s | Tipsy Blondes OC",
+    default: "Tipsy Blondes | Mobile Bartending in Orange County",
+    template: "%s | Tipsy Blondes",
   },
-  description:
-    "Tipsy Blondes OC is a mobile bartending service in Orange County for weddings and private events. You bring the alcohol, we bring the bar, the bartenders, and everything else.",
+  description: SITE.description,
   keywords: [
     "Orange County mobile bartending",
     "wedding bartending service",
@@ -37,20 +43,25 @@ export const metadata: Metadata = {
     "OC event bartenders",
   ],
   openGraph: {
-    title: "Tipsy Blondes OC | Mobile Bartending in Orange County",
-    description:
-      "Mobile bartending for weddings and events across Orange County. You bring the alcohol, we handle the rest.",
+    title: "Tipsy Blondes | Mobile Bar and Bartending",
+    description: SITE.description,
     url: SITE.url,
-    images: [{ url: "/media/og.png", width: 1200, height: 630, alt: "Tipsy Blondes OC" }],
+    images: [
+      {
+        url: "/media/tipsy-blondes-social.png",
+        width: 1200,
+        height: 630,
+        alt: "Tipsy Blondes — Mobile Bar and Bartending",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tipsy Blondes OC | Mobile Bartending in Orange County",
-    description:
-      "Mobile bartending for weddings and events across Orange County. You bring the alcohol, we handle the rest.",
-    images: ["/media/og.png"],
+    title: "Tipsy Blondes | Mobile Bar and Bartending",
+    description: SITE.description,
+    images: [{ url: "/media/tipsy-blondes-social.png", alt: "Tipsy Blondes — Mobile Bar and Bartending" }],
   },
   alternates: { canonical: SITE.url },
 };
@@ -61,12 +72,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${jost.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${jost.variable} ${lora.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <JsonLd data={localBusinessSchema()} />
         <Nav />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" tabIndex={-1} className="flex-1">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

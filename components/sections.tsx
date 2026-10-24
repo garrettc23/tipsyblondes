@@ -1,254 +1,260 @@
 import Image from "next/image";
 import {
-  OCCASIONS,
-  PACKAGES,
-  INCLUDED,
+  BAR_SETUPS,
+  WHY_TIPSY,
   REVIEWS,
   COCKTAILS,
   COCKTAIL_CATEGORIES,
+  SOCIAL_TILES,
+  SITE,
+  INQUIRY_HREF,
+  COPY,
+  FEATURED_CLIENTS,
 } from "@/lib/content";
-import { Button, Eyebrow, Heading } from "@/components/primitives";
+import { Button, Heading, Photo, Section } from "@/components/primitives";
 
-function CheckIcon() {
+export function BarOptions() {
   return (
-    <svg
-      className="mt-0.5 shrink-0 text-brass"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
-function CrossIcon() {
-  return (
-    <svg
-      className="mt-0.5 shrink-0 text-rose-500"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M18 6 6 18M6 6l12 12" />
-    </svg>
-  );
-}
-
-export function OccasionBand() {
-  const loop = [...OCCASIONS, ...OCCASIONS];
-  return (
-    <div className="border-y border-brass/15 bg-warmwhite py-9">
-      <div className="marquee">
-        <div className="marquee-track">
-          {loop.map((o, i) => (
-            <span key={i} className="flex items-center whitespace-nowrap">
-              <span className="px-7 text-lg uppercase tracking-[0.2em] text-ink-soft sm:text-2xl">
-                {o}
-              </span>
-              <span className="text-sm text-brass" aria-hidden>
-                &#10022;
-              </span>
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function PackageCard({
-  name,
-  price,
-  blurb,
-  popular,
-}: {
-  name: string;
-  price: string;
-  blurb: string;
-  popular?: boolean;
-}) {
-  return (
-    <div
-      className={`relative flex flex-col rounded-sm border bg-warmwhite p-8 ${
-        popular ? "border-brass card-shadow" : "border-brass/25"
-      }`}
-    >
-      {popular && (
-        <span className="absolute -top-3 left-8 pill bg-brass px-4 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-warmwhite">
-          Most Popular
-        </span>
-      )}
-      <h3 className="text-2xl">{name}</h3>
-      <p className="mt-2 font-serif text-5xl text-brass">{price}</p>
-      <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-ink-soft">{blurb}</p>
-      <div className="mt-6">
-        <Button href="/contact" variant={popular ? "solid" : "outline"}>
-          Contact Us
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-export function Packages() {
-  return (
-    <div className="grid gap-6 sm:grid-cols-2">
-      {PACKAGES.map((p) => (
-        <PackageCard key={p.name} {...p} />
+    <div className="grid gap-8 md:grid-cols-3">
+      {BAR_SETUPS.map((bar) => (
+        <article key={bar.name} className="text-center">
+          <Photo
+            src={bar.image}
+            alt={bar.alt}
+            className="aspect-[4/5]"
+            sizes="(max-width: 768px) 100vw, 33vw"
+            objectPosition={bar.objectPosition}
+          />
+          <h3 className="mt-5 text-3xl leading-tight">{bar.name}</h3>
+          <p className="mt-3 text-sm leading-relaxed text-ink-soft">{bar.description}</p>
+        </article>
       ))}
     </div>
   );
 }
 
-/** Detailed package cards: price, description, and the full what's-included list. */
-export function PricingPackages() {
+export function BarShowcase() {
   return (
-    <div className="grid gap-6 md:grid-cols-2">
-      {PACKAGES.map((p) => (
-        <div
-          key={p.name}
-          className={`relative flex flex-col rounded-sm border bg-warmwhite p-8 ${
-            p.popular ? "border-brass card-shadow" : "border-brass/25"
-          }`}
-        >
-          {p.popular && (
-            <span className="absolute -top-3 left-8 pill bg-brass px-4 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-warmwhite">
-              Most Popular
-            </span>
-          )}
-          <h3 className="text-2xl">{p.name}</h3>
-          <p className="mt-2 font-serif text-5xl text-brass">{p.price}</p>
-          <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-ink-soft">{p.blurb}</p>
-
-          <div className="mt-6 border-t border-brass/15 pt-6">
-            <p className="label mb-4">What is included</p>
-            <ul className="space-y-2.5">
-              {p.extra?.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm font-medium text-ink">
-                  <CheckIcon />
-                  {item}
-                </li>
-              ))}
-              {p.excludes?.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm font-medium text-ink">
-                  <CrossIcon />
-                  {item}
-                </li>
-              ))}
-              {INCLUDED.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm text-ink">
-                  <CheckIcon />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="mt-8">
-            <Button href="/contact" variant={p.popular ? "solid" : "outline"}>
-              Contact Us
-            </Button>
-          </div>
+    <div>
+      <div className="mb-10 flex flex-col items-center gap-6 text-center">
+        <div>
+          <Heading>Three looks for your bar</Heading>
+          <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-ink-soft">
+            A look at the bar setups from our events. Tell us which style you
+            have in mind when we plan your celebration.
+          </p>
         </div>
-      ))}
+        <div className="shrink-0"><Button href="/pricing">Explore our packages</Button></div>
+      </div>
+      <BarOptions />
     </div>
   );
 }
 
-export function ReviewCard({ quote, name }: { quote: string; name: string }) {
+export function WhyTipsyList({ compact = false }: { compact?: boolean }) {
   return (
-    <figure className="flex h-full flex-col rounded-sm border border-brass/20 bg-cream p-8">
-      <div className="flex gap-1 text-brass" aria-hidden>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <span key={i} className="text-sm">
-            &#9733;
+    <ul className={`grid gap-x-12 ${compact ? "gap-y-4" : "gap-y-7 md:grid-cols-2"}`}>
+      {WHY_TIPSY.map((item, index) => (
+        <li key={item.title} className="flex gap-5">
+          <span className="shrink-0 font-accent text-[1.75rem] font-medium leading-tight text-brass" aria-hidden>
+            0{index + 1}
           </span>
-        ))}
-      </div>
-      <span className="mt-4 font-serif text-6xl leading-[0.4] text-brass/25" aria-hidden>
-        &ldquo;
-      </span>
-      <blockquote className="mt-3 flex-1 font-serif text-lg leading-relaxed text-ink">
-        {quote}
-      </blockquote>
-      <figcaption className="mt-6 flex items-center gap-3">
-        <span className="h-px w-6 bg-brass" />
-        <span className="text-xs uppercase tracking-[0.22em] text-brass">{name}</span>
-      </figcaption>
-    </figure>
+          <div>
+            <h3 className="font-accent text-[1.75rem] leading-tight">{item.title}</h3>
+            <p className={`${compact ? "mt-2 leading-normal" : "mt-3 leading-relaxed"} text-[0.9375rem] text-ink-soft`}>
+              {item.detail}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }
 
-export function Reviews({ limit }: { limit?: number }) {
+export function Reviews({ limit, tone = "ivory" }: { limit?: number; tone?: "ivory" | "blush" }) {
   const list = limit ? REVIEWS.slice(0, limit) : REVIEWS;
   return (
-    <div className="grid items-stretch gap-6 md:grid-cols-3">
-      {list.map((r) => (
-        <ReviewCard key={r.name} {...r} />
+    <div
+      className={`grid gap-6 ${limit === 3 ? "lg:grid-cols-3" : "md:grid-cols-2"}`}
+    >
+      {list.map((review) => (
+        <figure
+          key={review.name}
+          className={`flex flex-col rounded-2xl p-7 sm:p-8 ${tone === "blush" ? "bg-blush" : "bg-warmwhite"}`}
+        >
+          <span
+            className="mb-5 font-serif text-5xl leading-none text-brass"
+            aria-hidden
+          >
+            “
+          </span>
+          <blockquote className="flex-1 font-accent text-[22px] font-medium leading-[1.55] text-ink-strong sm:text-2xl">
+            {review.quote}
+          </blockquote>
+          <figcaption className="mt-8 text-base font-normal tracking-normal text-ink-soft">
+            {review.name}
+          </figcaption>
+        </figure>
       ))}
     </div>
+  );
+}
+
+export function FeaturedClients() {
+  return (
+    <Section id="featured-clients" className="pt-0!">
+      <div className="rounded-2xl bg-blush px-6 py-10 sm:px-10 sm:py-12">
+        <Heading className="text-center">A few brands we’ve poured for</Heading>
+        <ul className="mx-auto mt-8 grid max-w-5xl grid-cols-2 items-center gap-6 lg:grid-cols-4 lg:gap-10">
+          {FEATURED_CLIENTS.filter((client) => client.logo).map((client) => (
+            <li key={client.name}>
+              <a
+                href={client.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit ${client.name} website (opens in a new tab)`}
+                className="group flex min-h-28 items-center justify-center rounded-xl sm:min-h-36"
+              >
+                <svg
+                  viewBox={client.logoViewBox}
+                  aria-hidden="true"
+                  className="h-auto shrink-0 text-black transition-colors duration-200 group-hover:text-[#aaa6a3] group-focus-visible:text-[#aaa6a3]"
+                  style={{ width: `${client.displayScale * 100}%`, maxWidth: client.displayWidth }}
+                >
+                  <defs>
+                    <filter id={`client-logo-${client.name.replaceAll(" ", "-")}`} colorInterpolationFilters="sRGB">
+                      {/* Remove white image backgrounds while preserving the source artwork's alpha. */}
+                      <feColorMatrix
+                        type="matrix"
+                        values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3 -3 -3 0 8.4"
+                        result="ink"
+                      />
+                      <feComposite in="ink" in2="SourceAlpha" operator="in" result="artwork" />
+                      <feFlood floodColor="currentColor" result="color" />
+                      <feComposite in="color" in2="artwork" operator="in" />
+                    </filter>
+                  </defs>
+                  <image
+                    href={client.logo}
+                    width={client.logoWidth}
+                    height={client.logoHeight}
+                    filter={`url(#client-logo-${client.name.replaceAll(" ", "-")})`}
+                  />
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Section>
   );
 }
 
 export function CocktailMenu() {
   return (
-    <div className="space-y-14">
-      {COCKTAIL_CATEGORIES.map((cat) => (
-        <div key={cat}>
-          <div className="mb-6 flex items-center gap-4">
-            <h3 className="text-2xl">{cat}</h3>
-            <span className="rule flex-1" />
+    <div className="space-y-16 text-center">
+      {COCKTAIL_CATEGORIES.map((category) => (
+        <section key={category}>
+          <div className="mb-8 border-b border-brass-soft pb-5">
+            <h2 className="text-4xl">{category}</h2>
           </div>
-          <ul className="grid gap-6 sm:grid-cols-2">
-            {COCKTAILS.filter((c) => c.category === cat).map((c) => (
+          <ul className="grid gap-x-16 gap-y-8 sm:grid-cols-2">
+            {COCKTAILS.filter((c) => c.category === category).map((c) => (
               <li key={c.name}>
-                <p className="font-serif text-2xl text-ink">{c.name}</p>
-                <p className="mt-1.5 text-base italic leading-relaxed text-ink-soft">{c.spec}</p>
+                <h3 className="text-2xl">{c.name}</h3>
+                <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-soft">
+                  {c.spec}
+                </p>
               </li>
             ))}
           </ul>
-        </div>
+        </section>
       ))}
     </div>
   );
 }
 
-export function CtaBand() {
+export function SocialPreview() {
   return (
-    <div className="relative overflow-hidden bg-ink">
-      <Image
-        src="/media/cta-cups.png"
-        alt="Custom Tipsy Blondes OC event cups holding signature cocktails"
-        fill
-        sizes="100vw"
-        className="object-cover"
-        style={{ objectPosition: "50% 63%" }}
-      />
-      <div className="absolute inset-0 bg-ink/55" />
-      <div className="relative mx-auto max-w-3xl px-6 py-16 text-center sm:py-20">
-        <p className="script text-4xl text-blush">You look like you need a drink</p>
-        <Heading className="mt-3 text-warmwhite" size="xl">
-          Let us pour your date
-        </Heading>
-        <div className="mt-9">
-          <Button href="/contact" variant="solid">
-            Contact Us
+    <Section id="behind-the-bar">
+      <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+        <div>
+          <Heading>A look at our events</Heading>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <Button href="/gallery">View the Gallery</Button>
+          <Button variant="outline" href={SITE.instagram} external>
+            Open Instagram
           </Button>
         </div>
       </div>
-    </div>
+      <div className="mt-9 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+        {SOCIAL_TILES.map((tile) => (
+          <a
+            key={tile.src}
+            href={tile.postUrl || SITE.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${tile.alt}. Open Instagram ${tile.postUrl ? "post" : "profile"} in a new tab`}
+            className="relative block"
+          >
+            <Photo
+              src={tile.src}
+              alt={tile.alt}
+              className="aspect-[4/5]"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+          </a>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+export function CtaBand() {
+  return (
+    <section
+      id="closing-inquiry"
+      className="relative isolate overflow-hidden bg-ink text-warmwhite"
+    >
+      <Image
+        src="/media/cta-cups.png"
+        alt="Tipsy Blondes signature cocktails in custom event cups"
+        fill
+        sizes="100vw"
+        className="-z-20 object-cover object-[50%_65%]"
+      />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-black/60" />
+      <div className="mx-auto flex min-h-[380px] max-w-4xl flex-col items-center justify-center px-6 py-12 text-center sm:px-10 sm:py-16">
+        <Heading className="text-balance">Let’s talk about your event.</Heading>
+        <p className="mt-5 w-full text-base leading-relaxed text-cream sm:text-lg">
+          {COPY.closing}
+        </p>
+        <div className="mt-7">
+          <Button href={INQUIRY_HREF} variant="light">
+            Chat with us
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function PageIntro({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <Section className="max-w-4xl! pb-12! text-center">
+      <Heading as="h1" size="xl">
+        {title}
+      </Heading>
+      <p className="mx-auto mt-6 w-full leading-relaxed text-ink-soft">
+        {description}
+      </p>
+    </Section>
   );
 }
