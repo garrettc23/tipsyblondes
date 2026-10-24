@@ -43,15 +43,15 @@ export const metadata: Metadata = {
     "OC event bartenders",
   ],
   openGraph: {
-    title: "Tipsy Blondes | Mobile Bar and Bartending",
+    title: "Mobile Bartending in Southern California | Tipsy Blondes",
     description: SITE.description,
     url: SITE.url,
     images: [
       {
-        url: "/media/tipsy-blondes-social.png",
+        url: "/media/tipsy-blondes-social-photo.png",
         width: 1200,
         height: 630,
-        alt: "Tipsy Blondes — Mobile Bar and Bartending",
+        alt: "Tipsy Blondes | Mobile Bar and Bartending",
       },
     ],
     locale: "en_US",
@@ -59,9 +59,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tipsy Blondes | Mobile Bar and Bartending",
+    title: "Mobile Bartending in Southern California | Tipsy Blondes",
     description: SITE.description,
-    images: [{ url: "/media/tipsy-blondes-social.png", alt: "Tipsy Blondes — Mobile Bar and Bartending" }],
+    images: [{ url: "/media/tipsy-blondes-social-photo.png", alt: "Tipsy Blondes | Mobile Bar and Bartending" }],
   },
   alternates: { canonical: SITE.url },
 };
