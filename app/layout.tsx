@@ -31,8 +31,8 @@ const lora = Lora({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Tipsy Blondes | Mobile Bartending in Orange County",
-    template: "%s | Tipsy Blondes",
+    default: "Mobile Bartending in Southern California — Tipsy Blondes",
+    template: "%s — Tipsy Blondes",
   },
   description: SITE.description,
   keywords: [
