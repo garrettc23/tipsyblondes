@@ -1,244 +1,155 @@
 import Image from "next/image";
-import { Section, Eyebrow, Heading, Button, ArchImage } from "@/components/primitives";
-import GalleryStrip from "@/components/GalleryStrip";
-import { OccasionBand, Reviews, CtaBand } from "@/components/sections";
-import { INCLUDED, COCKTAILS, SITE } from "@/lib/content";
+import { Section, Heading, Button, Photo } from "@/components/primitives";
+import {
+  BarShowcase,
+  Reviews,
+  SocialPreview,
+  CtaBand,
+  WhyTipsyList,
+  FeaturedClients,
+} from "@/components/sections";
+import Faqs from "@/components/Faqs";
+import { COPY, FAQS, INQUIRY_HREF } from "@/lib/content";
 
 export default function Home() {
   return (
     <>
-      {/* Hero */}
-      <Section className="grid items-center gap-10 pt-10 md:grid-cols-2 md:pt-16">
-        <div className="text-center md:text-left">
-          <h1 className="sr-only">
-            Tipsy Blondes OC, mobile bartending for weddings and events in Orange County
-          </h1>
-          <Eyebrow>Orange County Mobile Bartending</Eyebrow>
-          <p
-            aria-hidden
-            className="mt-5 font-serif text-[2.75rem] leading-[1.02] tracking-[0.005em] text-ink sm:text-6xl lg:text-[4.5rem]"
-          >
-            Tipsy Blondes <span className="text-brass">OC</span>
-          </p>
-          <p className="mt-3 text-xs uppercase tracking-[0.4em] text-ink-soft sm:text-sm">
-            Mobile Bartending
-          </p>
-          <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-ink-soft md:mx-0">
-            A mobile bar for weddings and events across {SITE.area}. You bring the alcohol,
-            we bring the bartenders, the bar, and everything in between.
-          </p>
-          <div className="mt-8 flex flex-nowrap justify-center gap-3 md:justify-start">
-            <Button href="/contact">Contact Us</Button>
-            <Button href="/gallery" variant="outline">
-              View the Gallery
-            </Button>
-          </div>
-          <a
-            href={SITE.theKnot}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-4 transition-opacity hover:opacity-80"
-          >
-            <Image
-              src="/media/knot-award.webp"
-              alt="The Knot Best of Weddings award badge"
-              width={80}
-              height={80}
-              className="h-20 w-20 shrink-0"
-            />
-            <span className="text-left text-base leading-snug text-ink-soft">
-              <span className="block font-serif text-xl text-ink">2x Best of Weddings winner</span>
-              on The Knot
-            </span>
-          </a>
-        </div>
-        <div className="relative mx-auto aspect-[3/4] w-full max-w-md">
-          <ArchImage
-            src="/media/hero-owners.png"
-            alt="Tipsy Blondes OC founders Taylor and Amber beside their signature bar"
-            variant="arch-full"
-            objectPosition="50% 30%"
+      <section
+        id="home-hero"
+        className="home-hero relative isolate overflow-hidden text-warmwhite"
+      >
+        <div className="hero-photo absolute inset-0">
+          <Image
+            src="/media/setup-detail.jpg"
+            alt="Two guests holding orange cocktails garnished with edible flowers"
+            fill
             priority
-            className="h-full w-full"
+            sizes="100vw"
+            className="object-cover object-bottom"
           />
         </div>
-      </Section>
+        <div aria-hidden="true" className="hero-scrim absolute inset-0" />
+        <div className="hero-copy relative mx-auto flex w-full max-w-[1600px] flex-col items-start justify-center px-6 py-10 sm:px-10 sm:py-14 lg:px-12 xl:px-20">
+          <div className="grid w-fit max-w-full grid-cols-[minmax(0,max-content)]">
+            <h1 className="text-[clamp(2.9rem,14.4vw,4.75rem)] leading-[1.12] tracking-[-0.025em] lg:text-[clamp(4.5rem,7.8vw,7.5rem)]">
+              <span className="block text-balance">Enjoy your party.</span>
+              <span className="mt-[0.12em] block text-balance lg:w-0 lg:min-w-full lg:whitespace-nowrap">We’ll handle the bar.</span>
+            </h1>
+            <p className="mb-8 mt-6 w-0 min-w-full text-base leading-relaxed text-cream sm:text-lg lg:mt-8">
+              {COPY.home.hero}
+            </p>
+          </div>
+          <Button href={INQUIRY_HREF} variant="light">
+            Chat with us
+          </Button>
+        </div>
+      </section>
 
-      <OccasionBand />
-
-      {/* Designed to pour beautifully */}
-      <Section className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-sm">
-          <ArchImage
-            src="/media/mirror-need-a-drink.jpg"
-            alt="Two signature cocktails garnished with dried citrus on a gold mirror tray"
-            variant="arch"
-            className="h-full w-full"
+      <div>
+        <Section
+          id="meet-the-founders"
+          className="grid items-center gap-10 md:grid-cols-2 lg:gap-20"
+        >
+          <Photo
+            src="/media/owners.webp"
+            alt="Tipsy Blondes founders Taylor and Amber"
+            className="aspect-[5/4] md:aspect-[4/5]"
+            objectPosition="50% 30%"
           />
-        </div>
-        <div>
-          <Eyebrow>The dry bar difference</Eyebrow>
-          <Heading className="mt-3" accent="beautifully">
-            Designed to pour
-          </Heading>
-          <p className="mt-5 text-base leading-relaxed text-ink-soft">
-            We are a dry bar, which means we handle everything except the alcohol. You buy
-            your own liquor from a shopping list we build around your guest count and menu.
-            Most couples save about 25 percent compared to a traditional open bar, and you
-            stay in full control of your budget.
-          </p>
-          <p className="mt-4 text-base leading-relaxed text-ink-soft">
-            From setup to the last pour, our team keeps the drinks flowing and the line
-            short so you can actually enjoy your own party.
-          </p>
-          <div className="mt-7">
-            <Button href="/pricing" variant="outline">
-              How it works
-            </Button>
-          </div>
-        </div>
-      </Section>
-
-      {/* What's included strip */}
-      <div className="bg-warmwhite">
-        <Section>
-          <div className="text-center">
-            <Eyebrow>Every package includes</Eyebrow>
-            <Heading className="mt-3" accent="rest">
-              You bring the alcohol, we bring the
-            </Heading>
-          </div>
-          <ul className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-3 text-sm text-ink-soft sm:grid-cols-3">
-            {INCLUDED.map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brass" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </Section>
-      </div>
-
-      {/* Signature cocktail teaser */}
-      <Section className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
-        <div className="order-2 md:order-1">
-          <Eyebrow>The menu</Eyebrow>
-          <Heading className="mt-3" accent="cocktails">
-            Fresh, custom
-          </Heading>
-          <p className="mt-5 text-base leading-relaxed text-ink-soft">
-            Every menu is planned with you. Fresh juice, quality ingredients, and drinks
-            that fit your theme. A few favorites from past events:
-          </p>
-          <ul className="mt-6 space-y-5">
-            {COCKTAILS.slice(0, 4).map((c) => (
-              <li key={c.name}>
-                <p className="font-serif text-2xl text-ink">{c.name}</p>
-                <p className="mt-1 text-base italic text-ink-soft">{c.spec}</p>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-7">
-            <Button href="/menu" variant="outline">
-              See the full menu
-            </Button>
-          </div>
-        </div>
-        <div className="relative order-1 mx-auto aspect-[4/5] w-full max-w-sm md:order-2">
-          <ArchImage
-            src="/media/cocktail-tajin.webp"
-            alt="A signature Tipsy Blondes OC margarita with a chili-salt rim"
-            variant="arch"
-            objectPosition="50% 40%"
-            className="h-full w-full"
-          />
-        </div>
-      </Section>
-
-      {/* The girls behind the bar */}
-      <div className="bg-warmwhite">
-        <Section className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-sm">
-            <ArchImage
-              src="/media/owners.webp"
-              alt="Tipsy Blondes OC founders Taylor and Amber behind the bar"
-              variant="circle"
-              objectPosition="50% 32%"
-              className="h-full w-full"
-            />
-          </div>
           <div>
-            <Eyebrow>Since 2024</Eyebrow>
-            <Heading className="mt-3" accent="bar">
-              The girls behind the
+            <Heading>
+              Hi, we’re
+              <br />
+              Amber & Taylor.
             </Heading>
-            <p className="mt-5 text-base leading-relaxed text-ink-soft">
-              Tipsy Blondes OC is a woman-owned bar service founded by best friends Taylor
-              Larson and Amber Arrington. What started as two friends who love a good party
-              became a mobile bartending team known for beautiful bars, thoughtful menus,
-              and service that makes you feel like the only guest that matters.
+            <p className="mt-6 leading-relaxed text-ink-soft">
+              {COPY.home.founders[0]}
             </p>
-            <p className="mt-4 text-base leading-relaxed text-ink-soft">
-              We treat your event like our own, right down to the last garnish.
+            <p className="mt-4 leading-relaxed text-ink-soft">
+              {COPY.home.founders[1]}
             </p>
+            <div className="mt-6">
+              <Button href="/about">
+                Get to know us
+              </Button>
+            </div>
           </div>
         </Section>
       </div>
 
-      {/* Our bar */}
-      <Section>
-        <div className="text-center">
-          <Eyebrow>Our setup</Eyebrow>
-          <Heading className="mt-3" accent="white bar">
-            Our signature
+      <FeaturedClients />
+
+      <Section
+        id="why-tipsy"
+        className="grid gap-x-12 gap-y-5 xl:grid-cols-2 lg:gap-x-20"
+      >
+        <div>
+          <Heading className="xl:text-6xl">
+            Why book
+            <br />
+            Tipsy Blondes?
           </Heading>
-          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink-soft">
-            Our clean white bar with a warm wood top and the martini mark is a statement
-            piece at any event. Styled with brushed brass lamps, fresh garnishes, and a menu
-            built around your day, it slips right into your celebration.
+          <p className="mt-4 leading-relaxed text-ink-soft">
+            {COPY.home.why}
           </p>
         </div>
-        <figure className="mx-auto mt-12 max-w-md">
-          <div className="relative aspect-[4/5] w-full">
-            <ArchImage
-              src="/media/bar-tipsy-blondes.jpg"
-              alt="The signature white Tipsy Blondes OC bar with the martini logo"
-              variant="arch"
-              objectPosition="50% 60%"
-              className="h-full w-full"
-            />
+        <Photo
+          src="/media/coupes-menu-sign.webp"
+          alt="Two freshly prepared cocktails with a custom event menu"
+          className="aspect-[5/4] xl:col-start-2 xl:row-span-2 xl:row-start-1 xl:aspect-[4/5] xl:self-center"
+          objectPosition="center 60%"
+        />
+        <div className="xl:col-start-1 xl:row-start-2">
+          <WhyTipsyList compact />
+          <div className="mt-5">
+            <Button href="/pricing">Explore our packages</Button>
           </div>
-        </figure>
+        </div>
       </Section>
 
-      {/* Reviews */}
-      <div className="bg-warmwhite">
-        <Section>
-          <div className="text-center">
-            <Eyebrow>Testimonials</Eyebrow>
-            <Heading className="mt-3" accent="us">
-              What clients say about
-            </Heading>
+      <div>
+        <Section id="our-bar">
+          <BarShowcase />
+        </Section>
+      </div>
+
+      <div className="bg-blush">
+        <Section id="testimonials">
+          <div className="mb-10 text-center">
+            <Heading>What our clients say</Heading>
           </div>
-          <div className="mt-12">
-            <Reviews limit={3} />
+          <Reviews limit={3} />
+          <div className="mt-12 text-center">
+            <Button href="/reviews">
+              Read more reviews
+            </Button>
           </div>
         </Section>
       </div>
 
-      {/* Gallery teaser */}
-      <Section>
-        <GalleryStrip
-          items={[
-            { src: "/media/marg-brick-wall.webp", alt: "A tajin-rimmed margarita held against a white brick wall" },
-            { src: "/media/tray-five-drinks.webp", alt: "A tray of five signature cocktails with dried citrus" },
-            { src: "/media/coupes-menu-sign.webp", alt: "Two coupe cocktails in front of a signature cocktail menu" },
-            { src: "/media/champagne-tower.jpg", alt: "A bride pouring a champagne tower at a reception" },
-            { src: "/media/coupes-sunflowers.webp", alt: "Two coupe cocktails beside sunflowers" },
-          ]}
-        />
-      </Section>
-
+      <div>
+        <Section
+          id="home-faq"
+          className="grid gap-10 md:grid-cols-[0.8fr_1.2fr] lg:gap-20"
+        >
+          <div>
+            <Heading>
+              Frequently asked
+              <br />
+              questions
+            </Heading>
+            <div className="mt-6">
+              <Button href="/faq">
+                View all FAQs
+              </Button>
+            </div>
+          </div>
+          <Faqs items={FAQS.slice(0, 5)} />
+        </Section>
+      </div>
+      <div className="bg-cream">
+        <SocialPreview />
+      </div>
       <CtaBand />
     </>
   );

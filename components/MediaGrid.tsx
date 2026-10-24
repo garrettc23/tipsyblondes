@@ -1,58 +1,78 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export type MediaItem = {
   type: "image" | "video";
   src: string;
   alt: string;
+  poster?: string;
 };
 
 export default function MediaGrid({ items }: { items: MediaItem[] }) {
-  // Only images open in the lightbox; videos use native fullscreen controls.
-  const images = items.filter((m) => m.type === "image");
   const [open, setOpen] = useState<number | null>(null);
-
+  const grid = useRef<HTMLDivElement>(null);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const viewerVideo = useRef<HTMLVideoElement>(null);
+  const activeItem = open === null ? null : items[open];
   const close = useCallback(() => setOpen(null), []);
   const step = useCallback(
     (delta: number) =>
-      setOpen((cur) =>
-        cur === null ? cur : (cur + delta + images.length) % images.length,
+      setOpen((current) =>
+        current === null
+          ? current
+          : (current + delta + items.length) % items.length,
       ),
-    [images.length],
+    [items.length],
   );
 
   useEffect(() => {
-    if (open === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      else if (e.key === "ArrowRight") step(1);
-      else if (e.key === "ArrowLeft") step(-1);
-    };
-    document.addEventListener("keydown", onKey);
+    const modal = dialog.current;
+    if (open === null) {
+      modal?.close();
+      return;
+    }
+    if (!modal?.open) modal?.showModal();
+    grid.current?.querySelectorAll("video").forEach((video) => video.pause());
+    const video = viewerVideo.current;
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+    const onKey = (event: KeyboardEvent) => {
+      // Let native video controls retain their arrow-key seeking/volume controls.
+      if (event.target instanceof HTMLVideoElement) return;
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        step(1);
+      }
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        step(-1);
+      }
     };
-  }, [open, close, step]);
+    modal?.addEventListener("keydown", onKey);
+    return () => {
+      video?.pause();
+      document.body.style.overflow = previousOverflow;
+      modal?.removeEventListener("keydown", onKey);
+    };
+  }, [open, step]);
 
   return (
     <>
-      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
-        {items.map((m) =>
-          m.type === "image" ? (
+      <div ref={grid} className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
+        {items.map((item, index) =>
+          item.type === "image" ? (
             <button
-              key={m.src}
+              key={item.src}
               type="button"
-              onClick={() => setOpen(images.findIndex((x) => x.src === m.src))}
-              aria-label={`Open image: ${m.alt}`}
-              className="block w-full cursor-zoom-in overflow-hidden rounded-sm break-inside-avoid"
+              onClick={() => setOpen(index)}
+              aria-label={`Open image: ${item.alt}`}
+              className="block w-full cursor-zoom-in overflow-hidden rounded-xl break-inside-avoid"
             >
               <Image
-                src={m.src}
-                alt={m.alt}
+                src={item.src}
+                alt={item.alt}
                 width={800}
                 height={1000}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -60,84 +80,94 @@ export default function MediaGrid({ items }: { items: MediaItem[] }) {
               />
             </button>
           ) : (
-            <div key={m.src} className="overflow-hidden rounded-sm break-inside-avoid">
-              {/* Native controls give play/pause, a draggable seek bar, and fullscreen. */}
+            <div key={item.src} className="overflow-hidden rounded-xl break-inside-avoid">
               <video
                 className="h-auto w-full"
-                src={m.src}
-                autoPlay
+                src={item.src}
+                poster={item.poster}
                 muted
-                loop
                 playsInline
                 controls
                 controlsList="nodownload"
                 preload="metadata"
-                aria-label={m.alt}
+                aria-label={item.alt}
               />
             </div>
           ),
         )}
       </div>
-
-      {open !== null && (
-        <div
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 p-4 sm:p-8"
-          onClick={close}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Image viewer"
-        >
-          <button
-            type="button"
-            onClick={close}
-            aria-label="Close"
-            className="absolute right-5 top-4 text-4xl leading-none text-warmwhite/70 transition-colors hover:text-warmwhite"
-          >
-            &times;
-          </button>
-
-          {images.length > 1 && (
-            <>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  step(-1);
-                }}
-                aria-label="Previous image"
-                className="absolute left-3 flex h-12 w-12 items-center justify-center rounded-full text-3xl text-warmwhite/70 transition-colors hover:bg-warmwhite/10 hover:text-warmwhite sm:left-6"
-              >
-                &#8249;
-              </button>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  step(1);
-                }}
-                aria-label="Next image"
-                className="absolute right-3 flex h-12 w-12 items-center justify-center rounded-full text-3xl text-warmwhite/70 transition-colors hover:bg-warmwhite/10 hover:text-warmwhite sm:right-6"
-              >
-                &#8250;
-              </button>
-            </>
-          )}
-
-          <div
-            className="relative h-[86vh] w-[92vw]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={images[open].src}
-              alt={images[open].alt}
-              fill
-              sizes="92vw"
-              className="object-contain"
-              priority
-            />
-          </div>
-        </div>
-      )}
+      <dialog
+        ref={dialog}
+        onClose={close}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) close();
+        }}
+        aria-label="Gallery viewer"
+        className="fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none border-0 bg-black/95 p-4 text-warmwhite backdrop:bg-black/80 sm:p-8"
+      >
+        {open !== null && activeItem && (
+          <>
+            <button
+              type="button"
+              onClick={close}
+              aria-label="Close gallery viewer"
+              className="absolute right-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-black/60 text-3xl"
+            >
+              ×
+            </button>
+            <p aria-live="polite" className="absolute left-5 top-6 z-10 text-xs">
+              <span className="sr-only">{activeItem.type === "video" ? "Video" : "Image"} </span>
+              {open + 1} / {items.length}
+            </p>
+            <div className="pointer-events-none relative mx-auto h-full w-full">
+              {activeItem.type === "video" ? (
+                <video
+                  key={activeItem.src}
+                  ref={viewerVideo}
+                  src={activeItem.src}
+                  poster={activeItem.poster}
+                  aria-label={activeItem.alt}
+                  className="pointer-events-auto h-full w-full object-contain"
+                  muted
+                  playsInline
+                  controls
+                  controlsList="nodownload"
+                  preload="metadata"
+                />
+              ) : (
+                <Image
+                  src={activeItem.src}
+                  alt={activeItem.alt}
+                  fill
+                  sizes="92vw"
+                  className="object-contain"
+                  priority
+                />
+              )}
+            </div>
+            {items.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => step(-1)}
+                  aria-label="Previous photo or video"
+                  className="absolute left-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 text-3xl"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  onClick={() => step(1)}
+                  aria-label="Next photo or video"
+                  className="absolute right-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 text-3xl"
+                >
+                  ›
+                </button>
+              </>
+            )}
+          </>
+        )}
+      </dialog>
     </>
   );
 }

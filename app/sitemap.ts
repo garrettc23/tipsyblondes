@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
-import { SITE, NAV } from "@/lib/content";
+import { SITE, PUBLIC_PAGES } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return NAV.map((l) => ({
-    url: `${SITE.url}${l.href === "/" ? "" : l.href}`,
+  return PUBLIC_PAGES.map((path) => ({
+    url: `${SITE.url}${path === "/" ? "" : path}`,
     changeFrequency: "monthly",
-    priority: l.href === "/" ? 1 : 0.8,
+    priority: path === "/" ? 1 : 0.8,
   }));
 }

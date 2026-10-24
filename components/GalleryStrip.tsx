@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/PageLink";
 import { useRef } from "react";
-import { Eyebrow, Heading } from "@/components/primitives";
+import { Heading } from "@/components/primitives";
 
 type Item = { src: string; alt: string };
 
@@ -23,19 +23,48 @@ export default function GalleryStrip({ items }: { items: Item[] }) {
     <>
       <div className="flex items-end justify-between gap-4">
         <div>
-          <Eyebrow>The gallery</Eyebrow>
-          <Heading className="mt-3" accent="action">
-            See us in
+          <Heading className="mt-3">
+            See us in action
           </Heading>
         </div>
         <div className="flex shrink-0 gap-2">
-          <button type="button" onClick={() => scroll(-1)} aria-label="Scroll gallery left" className={arrow}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <button
+            type="button"
+            onClick={() => scroll(-1)}
+            aria-label="Scroll gallery left"
+            className={arrow}
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
               <path d="M15 6l-6 6 6 6" />
             </svg>
           </button>
-          <button type="button" onClick={() => scroll(1)} aria-label="Scroll gallery right" className={arrow}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <button
+            type="button"
+            onClick={() => scroll(1)}
+            aria-label="Scroll gallery right"
+            className={arrow}
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
               <path d="M9 6l6 6-6 6" />
             </svg>
           </button>
@@ -49,7 +78,7 @@ export default function GalleryStrip({ items }: { items: Item[] }) {
         {items.map((g) => (
           <div
             key={g.src}
-            className="relative aspect-[3/4] w-[42%] shrink-0 snap-start overflow-hidden rounded-sm sm:w-[31%] lg:w-[23%]"
+            className="relative aspect-[3/4] w-[42%] shrink-0 snap-start overflow-hidden rounded-xl sm:w-[31%] lg:w-[23%]"
           >
             <Image
               src={g.src}
@@ -62,12 +91,11 @@ export default function GalleryStrip({ items }: { items: Item[] }) {
         ))}
         <Link
           href="/gallery"
-          className="flex aspect-[3/4] w-[42%] shrink-0 snap-start flex-col items-center justify-center gap-1.5 rounded-sm border border-brass bg-warmwhite text-center transition-colors hover:bg-cream sm:w-[31%] lg:w-[23%]"
+          className="flex aspect-[3/4] w-[42%] shrink-0 snap-start flex-col items-center justify-center gap-1.5 rounded-xl border border-brass bg-warmwhite text-center transition-colors hover:bg-cream sm:w-[31%] lg:w-[23%]"
         >
           <span className="script text-2xl text-brass">See more</span>
-          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-ink">Open the gallery</span>
-          <span className="mt-1 text-lg text-brass" aria-hidden>
-            &rarr;
+          <span className="text-[0.65rem] uppercase tracking-[0.2em] text-ink">
+            Open the gallery
           </span>
         </Link>
       </div>

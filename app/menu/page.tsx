@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Section, Eyebrow, Heading, Button } from "@/components/primitives";
+import { Section, Heading } from "@/components/primitives";
 import { CocktailMenu, CtaBand } from "@/components/sections";
+import { COPY } from "@/lib/content";
 import { JsonLd, breadcrumbSchema } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Signature Cocktail Menu",
+  title: "Custom Cocktail Menus",
   description:
-    "Explore Tipsy Blondes OC signature cocktails. Fresh margaritas, palomas, martinis, and classics, all custom planned for your Orange County wedding or event.",
+    "Browse example cocktails from Tipsy Blondes. We create a custom menu for your event, including your favorite drinks and non-alcoholic options.",
   alternates: { canonical: "https://tipsyblondesoc.com/menu" },
 };
 
@@ -20,37 +21,27 @@ export default function Menu() {
         ])}
       />
 
-      <Section className="pb-6 text-center">
-        <Eyebrow>Signature cocktails</Eyebrow>
-        <Heading as="h1" className="mt-3" accent="you" size="xl">
-          Fresh drinks, planned with
+      <Section className="pt-12! pb-8! text-center sm:pt-16!">
+        <Heading as="h1" className="mt-3" size="xl">
+          {COPY.menu.heading}
         </Heading>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink-soft">
-          These are favorites from past events. Your final menu is built with you during
-          planning, so you can pull from this list or dream up something new. We use fresh
-          juice and quality ingredients, always.
+        <p className="mx-auto mt-5 max-w-4xl text-base leading-relaxed text-ink-soft">
+          {COPY.menu.intro}
         </p>
       </Section>
 
-      <Section className="pt-4">
+      <Section id="cocktail-menu" className="pt-4!">
         <CocktailMenu />
       </Section>
 
-      <div className="bg-warmwhite">
-        <Section className="max-w-2xl! text-center">
-          <p className="script text-3xl text-ink-soft">Something for everyone</p>
-          <Heading className="mt-2" accent="request">
-            Zero proof options on
-          </Heading>
-          <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-ink-soft">
-            Want mocktails, a welcome drink, or a his and hers pairing? We build those in
-            too. Tell us your vision and we will shape the menu around it.
+      <Section id="non-alcoholic-drinks" className="pt-0!">
+        <div className="grid items-center gap-6 rounded-2xl bg-blush p-7 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:p-12">
+          <Heading className="text-balance">Non-alcoholic drinks</Heading>
+          <p className="text-base leading-relaxed text-ink">
+            {COPY.menu.nonAlcoholic}
           </p>
-          <div className="mt-8">
-            <Button href="/contact">Plan your menu</Button>
-          </div>
-        </Section>
-      </div>
+        </div>
+      </Section>
 
       <CtaBand />
     </>
