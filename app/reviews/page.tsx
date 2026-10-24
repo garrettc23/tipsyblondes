@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Client Reviews",
   description:
     "Read Tipsy Blondes client reviews about cocktail planning, friendly bartenders, and service at their weddings and parties.",
-  alternates: { canonical: "https://tipsyblondesoc.com/reviews" },
+  alternates: { canonical: "/reviews" },
 };
 
 export default function ReviewsPage() {

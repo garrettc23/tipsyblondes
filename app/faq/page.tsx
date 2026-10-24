@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Frequently Asked Questions",
   description:
     "Answers about Tipsy Blondes insurance, alcohol, service areas, custom quotes, and booking your mobile bar.",
-  alternates: { canonical: "https://tipsyblondesoc.com/faq" },
+  alternates: { canonical: "/faq" },
 };
 
 export default function FaqPage() {

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Custom Cocktail Menus",
   description:
     "Browse example cocktails from Tipsy Blondes. We create a custom menu for your event, including your favorite drinks and non-alcoholic options.",
-  alternates: { canonical: "https://tipsyblondesoc.com/menu" },
+  alternates: { canonical: "/menu" },
 };
 
 export default function Menu() {

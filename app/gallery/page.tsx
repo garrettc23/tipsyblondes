@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Gallery",
   description:
     "See Tipsy Blondes in action. Photos and video from weddings and events across Orange County, from bar setups to signature cocktails.",
-  alternates: { canonical: "https://tipsyblondesoc.com/gallery" },
+  alternates: { canonical: "/gallery" },
 };
 
 // A curated mix of event photography and playable videos.
